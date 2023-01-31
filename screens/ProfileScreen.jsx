@@ -2,7 +2,8 @@ import { StyleSheet, Text, TouchableOpacity, View, Button } from 'react-native'
 import React, { useState } from 'react'
 import { Avatar, TextInput } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { BACKEND_URL, logoutSuccess } from '../redux/authSlice';
 
 const ProfileScreen = () => {
   const {user} = useSelector(state => state.auth)
@@ -10,6 +11,7 @@ const ProfileScreen = () => {
   const [name,setName] = useState(user.name);
   const navigation = useNavigation();
 
+    const dispatch = useDispatch();
   const handleChangePhoto = () => {
     navigation.navigate("Camera")
   }
@@ -36,7 +38,7 @@ const ProfileScreen = () => {
   }
 
   const logoutUser = async() => {
-    const response = await fetch(`${BACKEND_URL}/task/${taskId}`, {
+    const response = await fetch(`${BACKEND_URL}/logout`, {
       method: 'GET', 
       headers: {
         'Content-Type': 'application/json'
@@ -46,7 +48,7 @@ const ProfileScreen = () => {
    if(!data.success){
     dispatch(setError({message: data.message}))
    }
-   dispatch(getProfie());
+   dispatch(logoutSuccess());
    dispatch(setMessage({message: data.message}))
   }
 

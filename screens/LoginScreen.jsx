@@ -12,10 +12,10 @@ const LoginScreen = () => {
   const dispatch = useDispatch();
   const {loading,message,user,error,isAuthenticated} = useSelector(state => state.auth);
 
+  
   const handleLogin = async(loginData) => {
     dispatch(loginUser({email:loginData.email,password:loginData.password}))
   }
-
 
   useEffect(() => {
     if(!loading && isAuthenticated){

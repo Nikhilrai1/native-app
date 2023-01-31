@@ -20,7 +20,7 @@ const Main = () => {
 const dispatch = useDispatch()
   useEffect(() => {
     setLogin(isAuthenticated);
-  },[dispatch])
+  },[dispatch,isAuthenticated])
   return (
     <>
    {loading ? <Loader /> :
