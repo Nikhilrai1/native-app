@@ -11,6 +11,9 @@ import CameraScreen from './screens/CameraScreen';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from './components/Loader';
 import ChangePasswordScreen from './screens/ChangePasswordScreen';
+import VerifyScreen from './screens/VerifyScreen';
+import ForgotPassword from './screens/ForgetPasswordScreen';
+import ResetPasswordScreen from './screens/ResetPasswordScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,7 +34,10 @@ const dispatch = useDispatch()
       <Stack.Screen name="Profile" options={{headerShown: false}} component={ProfileScreen} />
       <Stack.Screen name="Register" options={{headerShown: false}} component={RegisterScreen} />
       <Stack.Screen name="Camera" options={{headerShown: false}} component={CameraScreen} />
+      <Stack.Screen name="ForgetPassword" options={{headerShown: false}} component={ForgotPassword} />
       <Stack.Screen name="ChangePassword" options={{headerShown: false}} component={ChangePasswordScreen} />
+      <Stack.Screen name="ResetPassword" options={{headerShown: false}} component={ResetPasswordScreen} />
+      <Stack.Screen name="Verify" options={{headerShown: false}} component={VerifyScreen} />
     </Stack.Navigator>
  <Footer />
   </NavigationContainer>

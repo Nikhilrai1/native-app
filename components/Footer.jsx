@@ -17,20 +17,22 @@ const Footer = () => {
     }}
     >
      {isAuthenticated && <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-    <Icon name='home' size={30} color={"#900"} />
+    <Icon name='home' size={30} color={"#8b1ed1"} />
       </TouchableOpacity>}
 
     {isAuthenticated && <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
-    <Icon name='user' size={30} color={"#900"} />
+    <Icon name='user' size={30} color={"#8b1ed1"} />
       </TouchableOpacity>}
 
-      <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-    <Icon name='login' size={30} color={"#900"} />
+      {!isAuthenticated && <>
+        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+    <Icon name='login' size={30} color={"#8b1ed1"} />
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-    <Icon name='adduser' size={30} color={"#900"} />
+    <Icon name='adduser' size={30} color={"#8b1ed1"} />
       </TouchableOpacity>
+      </>}
     </View>
   )
 }

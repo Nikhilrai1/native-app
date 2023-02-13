@@ -11,6 +11,8 @@ const initialState = {
 
 // endpoints
 export const BACKEND_URL = "https://nikhil-todo.onrender.com/api/v1"
+// export const BACKEND_URL = "http://localhost:3000/api/v1"
+
 
 // login
 export const loginUser = createAsyncThunk('auth/login', async ({ email, password }, { rejectWithValue }) => {
@@ -63,6 +65,9 @@ export const authSlice = createSlice({
     setMessage: (state,action) => {
         state.message = action.payload.message;
     },
+    setLoading: (state,action) => {
+        state.message = action.payload;
+    },
     setError: (state,action) => {
         state.error = action.payload.message;
     },
@@ -110,5 +115,5 @@ export const authSlice = createSlice({
 }
 });
 
-export const { requestApi, addTaskSuccess, addTaskFailure,setMessage, setError, clearMessage, logoutSuccess, clearError } = authSlice.actions;
+export const { requestApi, addTaskSuccess, addTaskFailure,setLoading, setMessage, setError, clearMessage, logoutSuccess, clearError } = authSlice.actions;
 export default authSlice.reducer;

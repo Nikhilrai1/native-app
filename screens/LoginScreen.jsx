@@ -12,13 +12,13 @@ const LoginScreen = () => {
   const dispatch = useDispatch();
   const {loading,message,user,error,isAuthenticated} = useSelector(state => state.auth);
 
-  
+
   const handleLogin = async(loginData) => {
     dispatch(loginUser({email:loginData.email,password:loginData.password}))
   }
 
   useEffect(() => {
-    if(!loading && isAuthenticated){
+    if(!loading && isAuthenticated && user){
      return navigation.navigate("Home");
     }
     if(error){
@@ -47,14 +47,17 @@ const LoginScreen = () => {
         onChangeText={value => setPassword(value)}
         />
          <TouchableOpacity style={{marginVertical: 10, width: "100%"}}>
-        <Button disabled={!email || !password} title='Login' color={"#900"} onPress={() => handleLogin({email,password})} />
+        <Button disabled={!email || !password} title='Login' color={"#8b1ed1"} onPress={() => handleLogin({email,password})} />
         </TouchableOpacity>
         </View>
 
-        <View style={{marginVertical: 10, alignItems: "center", justifyContent: "center"}}>
+        <View style={{marginVertical: 10, display: "flex",  alignItems: "center", justifyContent: "center"}}>
           <Text>or</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-          <Text style={{fontSize: 15, color: "#900"}}>Register</Text>
+          <TouchableOpacity style={{marginVertical: 10}} onPress={() => navigation.navigate("ForgetPassword")}>
+          <Text style={{fontSize: 15, color: "gray"}}>forget password</Text>
+          </TouchableOpacity>
+          <TouchableOpacity  onPress={() => navigation.navigate("Register")}>
+          <Text style={{fontSize: 15, color: "#8b1ed1"}}>Register</Text>
           </TouchableOpacity>
         </View>
 

@@ -2,7 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import { Camera, CameraType } from 'expo-camera'
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import * as ImagePicker from "expo-image-picker";
 
 const CameraScreen = () => {
@@ -10,6 +10,7 @@ const CameraScreen = () => {
   const [haspermission, setHasPermission] = useState(null)
   const camera = useRef()
   const navigation = useNavigation()
+  const route = useRoute();
 
 useEffect(() => {
     (async () => {
@@ -30,8 +31,11 @@ const openImagePickerAsync = async () => {
     aspect: [1,1], // in 1:1 ratio
     quality: 1, // maximum quality
   })
+  console.log("result",result)
   if (!result.canceled) {
     console.log(result);
+    console.log("result",result.assets[0].uri)
+    if(route.params?.profileScreen) return  navigation.navigate("Profile",{image: result.assets[0].uri})
     return navigation.navigate("Register",{image: result.assets[0].uri})
   } else {
     alert('You did not select any image.');
@@ -41,6 +45,7 @@ const openImagePickerAsync = async () => {
 const clickPicture = async () => {
   const data = await camera.current.takePictureAsync();
   console.log(data)
+  if(route.params?.profileScreen) return  navigation.navigate("Profile",{image: data.uri})
   navigation.navigate("Register",{image: data.uri})
 }
 if(haspermission === null){

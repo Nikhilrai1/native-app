@@ -52,14 +52,19 @@ const HomeScreen = () => {
       alert(message)
       dispatch(clearMessage())
     }
-  },[user,dispatch,message,error])
+  },[user,dispatch,message,error,loading])
   return (
     <SafeAreaView style={styles.AndroidSafeArea}>
-      <Text style={styles.heading}>All Tasks</Text>
+      <Text style={styles.heading}>My Tasks</Text>
       <ScrollView>
-      {user.tasks.map(task => (
+      {user?.tasks.map(task => (
         <Task key={task._id} taskId={task._id} title={task.title} description={task.description} status={task.completed} />
       ))}
+      {(user?.tasks === [] || user?.tasks.length === 0 ) && 
+      <View style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+        <Text style={{color: "green"}}>No task to display...</Text>
+        </View>
+        }
       </ScrollView>
 
       <TouchableOpacity 
@@ -91,7 +96,7 @@ const HomeScreen = () => {
             <Text>Cancel</Text>
           </TouchableOpacity>
 
-          <Button style={styles.button} title='ADD' color={"#900"} onPress={() => addTask({title,description})}/>
+          <Button style={styles.button} title='ADD' color={"#8b1ed1"} onPress={() => addTask({title,description})}/>
           </View>
 
         </Dialog.Content>
@@ -110,9 +115,9 @@ const styles = StyleSheet.create({
     textAlign: "center", 
     fontSize: 28, 
     color: "white", 
-    backgroundColor: "#000",
-     marginBottom: 20, 
-     marginTop: 20
+    backgroundColor: "#8440af",
+    marginBottom: 20, 
+    marginTop: 20
   },
   addBtn: {
     backgroundColor: "#fff",

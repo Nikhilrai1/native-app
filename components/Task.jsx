@@ -9,6 +9,7 @@ const Task = ({title,description,status, taskId}) => {
   const [completed,setCompleted] = useState(status);
 
     const dispatch = useDispatch()
+
     const updateTask = async(taskId) => {
       setCompleted(prev => !prev)
       const response = await fetch(`${BACKEND_URL}/task/${taskId}`, {
@@ -21,8 +22,6 @@ const Task = ({title,description,status, taskId}) => {
      if(!data.success){
       dispatch(setError({message: data.message}))
      }
-     dispatch(getProfie());
-     dispatch(setMessage({message: data.message}))
 
     }
     
@@ -51,7 +50,7 @@ const Task = ({title,description,status, taskId}) => {
       }}
     >
      <View style={{width: "70%"}}>
-      <Text style={{fontSize: 20, marginVertical: 7, color: "#900"}}>{title}</Text>
+      <Text style={{fontSize: 20, marginVertical: 7, color: "#8b1ed1"}}>{title}</Text>
       <Text style={{color: "#4a4a4a"}}>{description}</Text>
      </View>
      <Checkbox 
@@ -64,7 +63,7 @@ const Task = ({title,description,status, taskId}) => {
      color={"#fff"}
      size={20}
      style={{
-      backgroundColor: "#900",
+      backgroundColor: "#8b1ed1",
       padding: 10,
       borderRadius: 100
      }}

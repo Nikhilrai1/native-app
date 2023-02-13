@@ -5,23 +5,22 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { BACKEND_URL, clearError, clearMessage, setError, setMessage } from '../redux/authSlice';
 
-const ResetPasswordScreen = () => {
-  const [newPassword,setNewPassword] = useState("");
-  const [otp,setOtp] = useState("");
+const ForgotPassword = () => {
+  const [email,setEmail] = useState("");
   const navigation = useNavigation();
 
   const {message,error,loading} = useSelector(state => state.auth);
   const dispatch = useDispatch()
 
 
-const resetPassword = async({newPassword,otp}) => {
+const forgetPassword = async({email}) => {
    try {
-    const response = await fetch(`${BACKEND_URL}/resetpassword`, {
-        method: 'PUT', 
+    const response = await fetch(`${BACKEND_URL}/forgetpassword`, {
+        method: 'POST', 
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({newpassword: newPassword,otp}) 
+        body: JSON.stringify({email}) 
       });
      
       const data = await response.json();
@@ -30,7 +29,7 @@ const resetPassword = async({newPassword,otp}) => {
         return;
        }
        dispatch(setMessage({message: data.message}))
-       navigation.navigate("Login")
+       navigation.navigate("ResetPassword")
       
       } catch (error) {
         console.log(error)
@@ -55,22 +54,16 @@ const resetPassword = async({newPassword,otp}) => {
 
   return (
     <View style={styles.container}>
-      <Text  style={{fontSize: 20, margin: 20, fontWeight: "bold"}}>Reset Password</Text>
+      <Text  style={{fontSize: 20, margin: 20, fontWeight: "bold"}}>Forget Password</Text>
      <View style={{width: "70%"}}>
       <TextInput 
         style={styles.input}
-        placeholder="New Password"
-        value={newPassword}
-        onChangeText={value => setNewPassword(value)}
-        />
-        <TextInput 
-        style={styles.input}
-        placeholder="OTP"
-        value={otp}
-        onChangeText={value => setOtp(value)}
+        placeholder="Email"
+        value={email}
+        onChangeText={value => setEmail(value)}
         />
          <TouchableOpacity style={{marginVertical: 10, width: "100%"}}>
-        <Button disabled={!newPassword || !otp}  title='Reset Password' color={"#8b1ed1"} onPress={() => resetPassword({newPassword,otp})} />
+        <Button disabled={!email}  title='Forget Password' color={"#8b1ed1"} onPress={() => forgetPassword({email})} />
         </TouchableOpacity>
         </View>
 
@@ -85,7 +78,7 @@ const resetPassword = async({newPassword,otp}) => {
   )
 }
 
-export default ResetPasswordScreen
+export default ForgotPassword
 
 const styles = StyleSheet.create({
   container: {
